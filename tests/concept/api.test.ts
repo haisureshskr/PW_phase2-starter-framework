@@ -6,7 +6,7 @@ const response=await request.get("https://jsonplaceholder.typicode.com/posts/1")
      expect(response.status()).toBe(200)
      const post=await response.json()
      expect(post.id).toBe(1)
-
+    console.log("checking for CI")
  })
 
 // // test('POST a new post to JSONPlaceholder', async ({ request }) => {
