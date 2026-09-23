@@ -14,9 +14,23 @@ if (!process.env.DEMO_PASS) throw new Error('DEMO_PASS is not set in .env');
 export default defineConfig({
     timeout: 40 * 1000,
     expect: { timeout: 40 * 1000 },
-    reporter: 'html',
+    reporter: [['html'],['allure-playwright']],
+    retries:process.env.CI ? 2 : 1,
+    use:{
+        scereenshot: 'only-on-failure',
+        video: 'retain-on-failure',
+        trace: 'on-first-retry',
+    },
 
     projects: [
+        {
+            name: 'api',
+            testDir: './tests',
+            testMatch: '**/concept/api.test.ts',
+            use: {
+                ignoreHTTPSErrors: true,
+            },
+        },
         {
             name: 'setup',
             testDir: './helpers',
